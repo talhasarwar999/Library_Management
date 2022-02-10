@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} {{product.bookname}}{% endblock %}
+{% block body %}
+<div class="container my-4">
+    <div class="row mx-1">
+    <div class="col-md-4">
+        <img src="/media/{{viewbook.image}}" alt="" class="img-fluid">
+        </div>
+    <div class="col-md-8">
+        <h4>{{viewbook.bookname}}</h4>
+        <p><strong>By: </strong>{{viewbook.authorname}}</p>
+        <p><strong>Book Category: </strong>{{viewbook.category}}</p>
+        <p><strong>Book ISBN No: </strong>{{viewbook.isbn}}</p>
+        <p><strong>Total Pages: </strong>{{viewbook.nofpages}}</p>
+        <strong>Description: </strong><p>{{viewbook.description}}</p>
+         <div class="row">
+            <a href="/editbook/{{viewbook.sno}}" class="btn btn-success mx-2">Edit</a>
+            <a href="/deletebook/{{viewbook.sno}}" class="btn btn-danger mx-2">Delete</a>
+            <button class="btn btn-primary mx-2">Issue Book</button>
+        </div>
+    </div>
+        </div>
+</div>
+{% endblock %}

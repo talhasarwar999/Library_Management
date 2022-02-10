@@ -1,0 +1,32 @@
+{% extends 'base.html '%}
+{% block title %} Student || Page {% endblock title %}
+{% block body %}
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h2>Nothing is pleasanter than exploring a library</h2>
+    <h3>When in doubt go to the library</h3>
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="row cards">
+    {% for data in listdata %}
+    <table class="table table-bordered table-success">
+  <thead class="bg-danger">
+    <tr>
+      <th scope="col">Student Username</th>
+      <th scope="col">Issued Book</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{data.fine}}</td>
+    </tr>
+  </tbody>
+</table>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock body %}

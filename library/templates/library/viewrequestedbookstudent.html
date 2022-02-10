@@ -1,0 +1,46 @@
+{% extends 'base.html '%}
+{% block title %} Student || Page {% endblock title %}
+{% block body %}
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h2>Nothing is pleasanter than exploring a library</h2>
+    <h3>When in doubt go to the library</h3>
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="row cards">
+    {% if requestedbook %}
+    <div class="alert alert-secondary" role="alert">
+      All Requests
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-success">
+        <thead class="bg-danger">
+
+          <tr>
+            <th scope="col">Book Name</th>
+            <th scope="col">Request Date</th>
+            <th scope="col">Delete Request</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in requestedbook %}
+          <tr>
+            <td>{{request.bookname}}</td>
+            <td>{{request.requestdate}}</td>
+            <td><a class="btn btn-danger" href="/deleterequest/{{request.id}}" ><i class="fa fa-trash-o fa-2x"></i></a></td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <div class="alert alert-warning" role="alert">
+            No Requests
+          </div>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

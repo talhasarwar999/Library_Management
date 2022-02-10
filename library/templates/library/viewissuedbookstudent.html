@@ -1,0 +1,65 @@
+{% extends 'base.html '%}
+{% block title %} Student || Page {% endblock title %}
+{% block body %}
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h2>Nothing is pleasanter than exploring a library</h2>
+    <h3>When in doubt go to the library</h3>
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="row cards">
+    {% if listdata %}
+    <div class="alert alert-secondary" role="alert">
+      All Issued Book For You
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-success">
+        <thead class="bg-danger">
+          
+          <tr>
+            <th scope="col">Book Name</th>
+            <th scope="col">Author Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Issued Date</th>
+            <th scope="col">Expire Date</th>
+            <th scope="col">Total Fine </th>
+            <th scope="col">Return Book </th>
+            <th scope="col">Payment</th>
+            
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in listdata %}
+          
+          <tr>
+            <td>{{data.0}}</td>
+            <td>{{data.1}}</td>
+            <td>{{data.2}}</td>
+            <td>{{data.3}}</td>
+            <td>{{data.4}}</td>
+            <td>{{data.5}}</td>
+            <td>{{data.6}}</td>
+            {% if data.6 == 0 %}
+            <td><a class="btn btn-primary" href="/returnbook/{{data.7}}">Return Book</a></td>
+            {% else %}
+            <td><button class="btn btn-primary" href="/returnbook/{{data.7}}" disabled="">Return Book</button></td>
+            <td><button class="btn btn-primary" href="#">Pay Fine</button></td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+          {% else %}
+          <div class="alert alert-warning" role="alert">
+           No Issued Book
+         </div>
+         {% endif %}
+       </tbody>
+     </table>
+   </div>
+ </div>
+</div>
+
+{% endblock body %}

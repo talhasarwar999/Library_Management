@@ -1,0 +1,36 @@
+{% extends 'base.html '%}
+{% block title %} Student || Page {% endblock title %}
+{% block body %}
+<div class="hero-image">
+  <div class="hero-text">
+    <h2>Nothing is pleasanter than exploring a library</h2>
+    <h3>When in doubt go to the library</h3>
+  </div>
+</div>
+{% for category in Allbooks %}
+<div class="container mt-4">
+  <h2 class="text-capitalize"> Category: {{category.0.category}}</h2>
+  <div class="row cards">
+
+    {% for book in category%}
+    <div class="col-lg-3 col-sm-6 col-md-3 mt-4">
+     <div class="card">  
+      
+       {% if book.image %}                                      
+       <img src="/media/{{book.image}}" alt="">
+       {% else %}
+       <img src="/media/librarymanage/images/ebooks.jpg" alt="">
+       {% endif %}
+       <div class="card-body">
+        <h5 class="mb-3">{{book.bookname}}</h5>
+        <h6 class="card-title"><Strong>By: </Strong>{{book.authorname}}</h6>
+        <p class="card-text">{{book.description|slice:"0:45"}}</p>
+        <a href="/StudentViewBook/{{book.sno}}" class="">Read More..</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+{% endfor %}
+{% endblock body %}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load temp %}
+{% load widget_tweaks %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{% block title %} index {% endblock title %}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Rochester' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-xl navbar-light sticky-top">
+    <div class="container-fluid">
+     <div class="row">
+      <a class="navbar-brand text-white">Library Management System</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>	
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-white mr-3" aria-current="page" href="/">Home</a>
+        </li>
+        {% if user.is_authenticated and request.user|has_group:"Admin" %}
+        <li class="nav-item">
+          <div class="dropdown">
+            <a class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Student Record
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/Viewstudentrecord">View Students Record</a>
+              <a class="dropdown-item" href="/issuebook">Issue Book to Student</a>
+              <a class="dropdown-item" href="/viewissuedbookadmin">View Issued Book</a>
+              <a class="dropdown-item" href="/viewrequestbyadmin">View Student Book Request</a>
+              <a class="dropdown-item" href="/viewadminhistory">Your History/Activity</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white mr-3" aria-current="page" href="/AdminPage">Admin Page</a>
+        </li>
+        <li class="mr-2">
+          <form method="GET" action="/adminsearch/" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></form>
+          </li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Welcome: {{request.user}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/logouts">Logout</a>
+              </div>
+            </div></li>
+            {% elif user.is_authenticated and request.user|has_group:"Student" %}
+            <li class="nav-item">
+              <div class="dropdown">
+                <a class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Book Issue
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/requestbook">Book Issue Request</a>
+                  <a class="dropdown-item" href="/viewissuedbookstudent">View Issued Book</a>
+                  <a class="dropdown-item" href="/viewrequestedbook">Your Book Requested</a> <a class="dropdown-item" href="/viewstudenthistory">Your History/Activity</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white mr-3" aria-current="page" href="/StudentPage">Student Page</a>
+            </li>
+            <li class="mr-2 mb-1">
+              <form method="GET" action="/studentsearch/" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></form>
+              </li>
+              <li class="nav-item">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                    Welcome: {{request.user}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/logouts">Logout</a>
+                  </div>
+                </div></li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link text-white mr-3" aria-current="page" href="/signup">Signup</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-white" href="/logins">Login</a>
+                </li>
+                {% endif %}
+              </div>
+            </div>
+          </nav>
+          {% for message in messages  %}            
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-0" role="alert">
+            <strong>Message : </strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %}
+
+          {% block body %} {% endblock body %}
+          <footer class="page-footer font-small blue bg-alert alert-secondary">
+
+            <!-- Copyright -->
+            <hr class="mt-5">
+            <div class="footer-copyright text-center py-5 ">© 2020 Copyright:
+              <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+            </div>
+            <!-- Copyright -->
+
+          </footer>
+
+          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script></body>
+          </html>

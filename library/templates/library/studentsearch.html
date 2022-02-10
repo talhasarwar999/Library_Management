@@ -1,0 +1,33 @@
+{% extends 'base.html '%}
+{% block title %} Student || Page {% endblock title %}
+{% block body %}
+
+<div class="container mt-4">
+	<div class="row cards">
+    {% if searchresult|length < 1 %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>No Search Results:</strong> Yout Result <strong>{{search}}</strong> did not match with anything.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% for search in searchresult %}
+    <div class="col-lg-3 col-sm-6 col-md-3 mt-4">
+     <div class="card">                                    
+      <img src="/media/{{search.image}}" alt="">
+
+      
+      <div class="card-body">
+        <h5 class="card-title">{{search.bookname}}</h5>
+        <h6 class="card-title"><Strong>By: </Strong>{{search.authorname}}</h6>
+        <p class="card-text">{{search.description|slice:"0:45"}}</p>
+        <a href="/StudentViewBook/{{search.sno}}" class="">Read More..</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{% endblock body %}

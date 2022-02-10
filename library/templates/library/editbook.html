@@ -1,0 +1,58 @@
+{% extends 'base.html '%}
+{% block title %} Admin || Page {% endblock title %}
+{% block body %}
+<div class="hero-image">
+  <div class="hero-text">
+    <h2>Nothing is pleasanter than exploring a library</h2>
+    <h3>When in doubt go to the library</h3>
+  </div>
+</div>  
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <form method="POST" action="/updatebook/{{editbook.sno}}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="">Book Name</label>
+          <input type="text" class="form-control" value="{{editbook.bookname}}" name="bookname" placeholder="Enter Book Name">
+        </div>
+        <div class="form-group">
+          <label for="">Author Name</label>
+          <input type="text" class="form-control" value="{{editbook.authorname}}" name="authorname" placeholder="Author Name">
+        </div>
+        <div class="form-group">
+          <label for="">ISBN</label>
+          <input type="number" class="form-control" name="isbn" value="{{editbook.isbn}}">
+        </div>
+        <div class="form-group">
+          <label for="">Book Page</label>
+          <input type="number" class="form-control"value="{{editbook.nofpages}}" name="nofpages" >
+        </div>
+        <div class="form-group">
+          <label for="">Book Category</label>
+          <select name="category" class="form-control" value="{{editbook.category}}">
+            <option value="default" selected="">Select Category</option>
+            <option value="education">education</option>
+            <option value="entertainment">entertainment</option>
+            <option value="comics">comics</option>
+            <option value="biography">biography</option>
+            <option value="history">history</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="">Upload Image</label>
+          <input type="file" class="form-control-file" value="/media/{{editbook.image}}" name="image">
+        </div>
+        <div class="form-group">
+          <label for="">Description</label>
+          <input name="description" value="{{editbook.description}}" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form></div>
+    </div>
+  </div>
+
+  {% endblock body %}

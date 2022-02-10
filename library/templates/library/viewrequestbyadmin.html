@@ -1,0 +1,55 @@
+{% extends 'base.html '%}
+{% block title %} Student || Page {% endblock title %}
+{% block body %}
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h2>Nothing is pleasanter than exploring a library</h2>
+    <h3>When in doubt go to the library</h3>
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="row cards">
+    {% if allrequest %}
+    <div class="alert alert-secondary" role="alert">
+      All Requests
+    </div>
+    <table class="table table-bordered table-success">
+      <thead class="bg-danger">
+
+        <tr>
+          <th scope="col">User Name</th>
+          <th scope="col">Book Name</th>
+          <th scope="col">Request</th>
+          <th scope="col">Request Date</th>
+          <th scope="col">Issue Book</th>
+          
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in allrequest %}
+        
+        <tr>
+          <form action="/issuebook/{{request.id}}" method="POST">
+            {% csrf_token %}
+            <td>{{request.user_name}}<input type="hidden" value="{{request.bookname}}" name="bookname"></td>
+            <td>{{request.bookname}}<input type="hidden" value="{{request.user_name}}" name="studentname"></td>
+            
+            <td>Requested a Book</td>
+            <td>{{request.requestdate}}</td>
+            <td><input class="btn btn-primary" type="submit" value="Issue Book To Student"></td>
+          </form>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <div class="alert alert-warning" role="alert">
+          No Requests
+        </div>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock body %}
